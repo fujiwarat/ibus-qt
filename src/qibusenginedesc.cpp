@@ -18,8 +18,11 @@ EngineDesc::serialize (QDBusArgument &argument)
     argument << m_author;
     argument << m_icon;
     argument << m_layout;
-    argument << m_hotkeys;
     argument << m_rank;
+    argument << m_hotkeys;
+
+    // New properties of IBusEngineDesc will use dict for serialize.
+    //argument << new QByteArray ();
 
     return true;
 }
@@ -38,8 +41,11 @@ EngineDesc::deserialize (const QDBusArgument &argument)
     argument >> m_author;
     argument >> m_icon;
     argument >> m_layout;
-    argument >> m_hotkeys;
     argument >> m_rank;
+    argument >> m_hotkeys;
+
+    // New properties of IBusEngineDesc will use dict for serialize.
+    //argument >> array;
 
     return true;
 }
@@ -105,11 +111,11 @@ EngineDesc::parseXmlNode (const QDomNode & node)
         else if ( !child.nodeName().compare("layout") ) {
             m_layout = child.toElement().text();
         }
-        else if ( !child.nodeName().compare("hotkeys") ) {
-            m_hotkeys = child.toElement().text();
-        }
         else if ( !child.nodeName().compare("rank") ) {
             m_rank = child.toElement().text().toUInt();
+        }
+        else if ( !child.nodeName().compare("hotkeys") ) {
+            m_hotkeys = child.toElement().text();
         }
         else {
             QString s;

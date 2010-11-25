@@ -31,6 +31,9 @@ Component::serialize (QDBusArgument &argument)
     }
     argument.endArray();
 
+    // New properties of IBusComponent will use dict for serialize.
+    //argument << new QByteArray ();
+
     return true;
 }
 
@@ -64,6 +67,9 @@ Component::deserialize (const QDBusArgument &argument)
         m_engines.append(ep);
     }
     argument.endArray();
+
+    // New properties of IBusComponent will use dict for serialize.
+    //argument >> array;
 
     return true;
 }
